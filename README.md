@@ -1,4 +1,0 @@
-barclamp-cassandra
-==================
-
-Barclamp Cassandra
