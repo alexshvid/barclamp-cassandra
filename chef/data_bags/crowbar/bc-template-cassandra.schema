@@ -1,0 +1,154 @@
+{
+  "type": "map",
+  "required": true,
+  "mapping": {
+    "id": { "type": "str", "required": true, "pattern": "/^bc-cassandra-|^bc-template-cassandra$/" },
+    "description": { "type": "str", "required": true },
+    "attributes": {
+      "type": "map",
+      "required": true,
+      "mapping": {
+        "cassandra": {
+          "type": "map",
+          "required": true,
+          "mapping": {
+            "debug":  { "type": "bool", "required": true},
+            
+            "cluster_name": { "type": "str", "required": true},
+            "storage_port": { "type": "int", "required": true},
+            "ssl_storage_port": { "type": "int", "required": true},
+            "rpc_port": { "type": "int", "required": true},
+            "jmx_port": { "type": "int", "required": true},
+            "max_heap_size": { "type": "str", "required": true},
+            "heap_newsize": { "type": "str", "required": true},
+            "xx_directory": { "type": "str", "required": true},
+            "pid_file": { "type": "str", "required": true},
+            "output_file": { "type": "str", "required": true},
+
+            "hinted_handoff_enabled" : { "type": "bool", "required": true},
+            "max_hint_window_in_ms" : { "type": "int", "required": true},
+            "hinted_handoff_throttle_delay_in_ms" : { "type": "int", "required": true},
+
+            "partitioner": { "type": "str", "required": true},
+            "data_file_directories": { "type": "str", "required": true},
+            "commitlog_directory": { "type": "str", "required": true},
+            "saved_caches_directory": { "type": "str", "required": true},
+
+            "key_cache_save_period" : { "type": "int", "required": true},
+            "row_cache_size_in_mb" : { "type": "int", "required": true},
+            "row_cache_save_period" : { "type": "int", "required": true},
+            "row_cache_provider" : { "type": "str", "required": true},
+
+            "commitlog_sync" : { "type": "str", "required": true},
+            "commitlog_sync_batch_window_in_ms" : { "type": "int", "required": true},
+            "commitlog_sync_period_in_ms" : { "type": "int", "required": true},
+            "commitlog_segment_size_in_mb" : { "type": "int", "required": true},
+
+            "flush_largest_memtables_at" : { "type": "float", "required": true},
+            "reduce_cache_sizes_at" : { "type": "float", "required": true},
+            "reduce_cache_capacity_to" : { "type": "float", "required": true},
+
+            "concurrent_reads" : { "type": "int", "required": true},
+            "concurrent_writes" : { "type": "int", "required": true},
+
+            "memtable_flush_queue_size" : { "type": "int", "required": true},
+            "trickle_fsync" : { "type": "bool", "required": true},
+            "trickle_fsync_interval_in_kb" : { "type": "int", "required": true},
+
+            "rpc_keepalive" : { "type": "bool", "required": true},
+            "rpc_server_type" : { "type": "str", "required": true},
+            "rpc_timeout_in_ms" : { "type": "int", "required": true},
+            "rpc_min_threads" : { "type": "int", "required": true},
+            "rpc_max_threads" : { "type": "int", "required": true},
+            "thrift_framed_transport_size_in_mb" : { "type": "int", "required": true},
+            "thrift_max_message_length_in_mb" : { "type": "int", "required": true},
+
+            "incremental_backups" : { "type": "bool", "required": true},
+            "snapshot_before_compaction" : { "type": "bool", "required": true},
+            "auto_snapshot" : { "type": "bool", "required": true},
+            "column_index_size_in_kb" : { "type": "int", "required": true},
+            "in_memory_compaction_limit_in_mb" : { "type": "int", "required": true},
+            "multithreaded_compaction" : { "type": "bool", "required": true},
+            "compaction_throughput_mb_per_sec" : { "type": "int", "required": true},
+            "compaction_preheat_key_cache" : { "type": "bool", "required": true},
+
+            "endpoint_snitch" : { "type": "str", "required": true},
+            "dynamic_snitch_update_interval_in_ms" : { "type": "int", "required": true},
+            "dynamic_snitch_reset_interval_in_ms" : { "type": "int", "required": true},
+            "dynamic_snitch_badness_threshold" : { "type": "float", "required": true},
+
+            "request_scheduler" : { "type": "str", "required": true},
+            "index_interval" : { "type": "int", "required": true},
+
+            "keystore_password" : { "type": "str"},
+            "truststore_password" : { "type": "str"},
+
+            "log4j_level" : { "type": "str", "required": true},
+            "log4j_file_log" : { "type": "str", "required": true},
+            "log4j_file_maxsize_in_mb" : { "type": "int", "required": true},
+            "log4j_file_maxindex" : { "type": "int", "required": true}
+
+          }
+        }
+      }
+    },
+    "deployment": {
+      "type": "map",
+      "required": true,
+      "mapping": {
+        "cassandra": {
+          "type": "map",
+          "required": true,
+          "mapping": {
+            "crowbar-revision": { "type": "int", "required": true },
+            "crowbar-committing": { "type": "bool" },
+            "crowbar-queued": { "type": "bool" },
+            "element_states": {
+              "type": "map",
+              "mapping": {
+                = : {
+                  "type": "seq",
+                  "required": true,
+                  "sequence": [ { "type": "str" } ]
+                }
+              }
+            },
+            "elements": {
+              "type": "map",
+              "required": true,
+              "mapping": {
+                = : {
+                  "type": "seq",
+                  "required": true,
+                  "sequence": [ { "type": "str" } ]
+                }
+              }
+            },
+            "element_order": {
+              "type": "seq",
+              "required": true,
+              "sequence": [ {
+                "type": "seq",
+                "sequence": [ { "type": "str" } ]
+              } ]
+            },
+            "config": {
+              "type": "map",
+              "required": true,
+              "mapping": {
+                "environment": { "type": "str", "required": true },
+                "mode": { "type": "str", "required": true },
+                "transitions": { "type": "bool", "required": true },
+                "transition_list": {
+                  "type": "seq",
+                  "required": true,
+                  "sequence": [ { "type": "str" } ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

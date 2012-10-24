@@ -1,0 +1,284 @@
+
+%input#proposal_attributes{:type => "hidden", :name => "proposal_attributes", :value => @proposal.raw_data['attributes'][@proposal.barclamp].to_json}
+%p
+  %strong= t('.attributes')
+  = link_to "Raw", proposal_barclamp_path(:id => @proposal.name, :controller => @proposal.barclamp, :dep_raw => @dep_raw, :attr_raw => true), :style => "float: right;"
+  %div.container
+
+    %p
+      %label{ :for => :general_header }= t('.general_header')
+    %div.container
+
+      %p
+        %label{ :for => :cluster_name }= t('.cluster_name')
+        %input#cluster_name{:type => "text", :name => "cluster_name", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["cluster_name"], :onchange => "update_value('cluster_name', 'cluster_name', 'string')"}
+
+      %p
+        %label{ :for => :storage_port }= t('.storage_port')
+        %input#storage_port{:type => "text", :name => "storage_port", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["storage_port"], :onchange => "update_value('storage_port', 'storage_port', 'integer')"}
+
+      %p
+        %label{ :for => :ssl_storage_port }= t('.ssl_storage_port')
+        %input#ssl_storage_port{:type => "text", :name => "ssl_storage_port", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["ssl_storage_port"], :onchange => "update_value('ssl_storage_port', 'ssl_storage_port', 'integer')"}
+
+      %p
+        %label{ :for => :rpc_port }= t('.rpc_port')
+        %input#rpc_port{:type => "text", :name => "rpc_port", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["rpc_port"], :onchange => "update_value('rpc_port', 'rpc_port', 'integer')"}
+
+      %p
+        %label{ :for => :jmx_port }= t('.jmx_port')
+        %input#jmx_port{:type => "text", :name => "jmx_port", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["jmx_port"], :onchange => "update_value('jmx_port', 'jmx_port', 'integer')"}
+
+      %p
+        %label{ :for => :max_heap_size }= t('.max_heap_size')
+        %input#max_heap_size{:type => "text", :name => "max_heap_size", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["max_heap_size"], :onchange => "update_value('max_heap_size', 'max_heap_size', 'string')"}
+
+      %p
+        %label{ :for => :heap_newsize }= t('.heap_newsize')
+        %input#heap_newsize{:type => "text", :name => "heap_newsize", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["heap_newsize"], :onchange => "update_value('heap_newsize', 'heap_newsize', 'string')"}
+
+      %p
+        %label{ :for => :xx_directory }= t('.xx_directory')
+        %input#xx_directory{:type => "text", :name => "xx_directory", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["xx_directory"], :onchange => "update_value('xx_directory', 'xx_directory', 'string')"}
+
+      %p
+        %label{ :for => :pid_file }= t('.pid_file')
+        %input#pid_file{:type => "text", :name => "pid_file", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["pid_file"], :onchange => "update_value('pid_file', 'pid_file', 'string')"}
+
+      %p
+        %label{ :for => :output_file }= t('.output_file')
+        %input#output_file{:type => "text", :name => "output_file", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["output_file"], :onchange => "update_value('output_file', 'output_file', 'string')"}
+
+      %p
+        %label{ :for => :partitioner }= t('.partitioner')
+        = select_tag :partitioner, options_for_select([['RandomPartitioner','org.apache.cassandra.dht.RandomPartitioner'],['ByteOrderedPartitioner','org.apache.cassandra.dht.ByteOrderedPartitioner']], @proposal.raw_data['attributes'][@proposal.barclamp]["partitioner"]), :onchange => "update_value('partitioner', 'partitioner', 'string')"
+
+    %p
+      %label{ :for => :handoff_header }= t('.handoff_header')
+    %div.container
+
+      %p
+        %label{ :for => :hinted_handoff_enabled }= t('.hinted_handoff_enabled')
+        = select_tag :hinted_handoff_enabled, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["hinted_handoff_enabled"].to_s), :onchange => "update_value('hinted_handoff_enabled', 'hinted_handoff_enabled', 'boolean')"
+
+      %p
+        %label{ :for => :max_hint_window_in_ms }= t('.max_hint_window_in_ms')
+        %input#max_hint_window_in_ms{:type => "text", :name => "max_hint_window_in_ms", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["max_hint_window_in_ms"], :onchange => "update_value('max_hint_window_in_ms', 'max_hint_window_in_ms', 'integer')"}
+
+      %p
+        %label{ :for => :hinted_handoff_throttle_delay_in_ms }= t('.hinted_handoff_throttle_delay_in_ms')
+        %input#hinted_handoff_throttle_delay_in_ms{:type => "text", :name => "hinted_handoff_throttle_delay_in_ms", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["hinted_handoff_throttle_delay_in_ms"], :onchange => "update_value('hinted_handoff_throttle_delay_in_ms', 'hinted_handoff_throttle_delay_in_ms', 'integer')"}
+
+    %p
+      %label{ :for => :cache_header }= t('.cache_header')
+    %div.container
+
+      %p
+        %label{ :for => :saved_caches_directory }= t('.saved_caches_directory')
+        %input#saved_caches_directory{:type => "text", :name => "saved_caches_directory", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["saved_caches_directory"], :onchange => "update_value('saved_caches_directory', 'saved_caches_directory', 'string')"}
+
+      %p
+        %label{ :for => :key_cache_save_period }= t('.key_cache_save_period')
+        %input#key_cache_save_period{:type => "text", :name => "key_cache_save_period", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["key_cache_save_period"], :onchange => "update_value('key_cache_save_period', 'key_cache_save_period', 'integer')"}
+
+      %p
+        %label{ :for => :row_cache_size_in_mb }= t('.row_cache_size_in_mb')
+        %input#row_cache_size_in_mb{:type => "text", :name => "row_cache_size_in_mb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["row_cache_size_in_mb"], :onchange => "update_value('row_cache_size_in_mb', 'row_cache_size_in_mb', 'integer')"}
+
+      %p
+        %label{ :for => :row_cache_save_period }= t('.row_cache_save_period')
+        %input#row_cache_save_period{:type => "text", :name => "row_cache_save_period", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["row_cache_save_period"], :onchange => "update_value('row_cache_save_period', 'row_cache_save_period', 'integer')"}
+
+      %p
+        %label{ :for => :row_cache_provider }= t('.row_cache_provider')
+        = select_tag :row_cache_provider, options_for_select([['SerializingCacheProvider','SerializingCacheProvider'], ['ConcurrentLinkedHashCacheProvider', 'ConcurrentLinkedHashCacheProvider']], @proposal.raw_data['attributes'][@proposal.barclamp]["row_cache_provider"]), :onchange => "update_value('row_cache_provider', 'row_cache_provider', 'string')"
+
+    %p
+      %label{ :for => :commitlog_header }= t('.commitlog_header')
+    %div.container
+
+      %p
+        %label{ :for => :commitlog_directory }= t('.commitlog_directory')
+        %input#commitlog_directory{:type => "text", :name => "commitlog_directory", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["commitlog_directory"], :onchange => "update_value('commitlog_directory', 'commitlog_directory', 'string')"}
+
+      %p
+        %label{ :for => :commitlog_sync }= t('.commitlog_sync')
+        = select_tag :commitlog_sync, options_for_select([['periodic','periodic'], ['batch', 'batch']], @proposal.raw_data['attributes'][@proposal.barclamp]["commitlog_sync"]), :onchange => "update_value('commitlog_sync', 'commitlog_sync', 'string')"
+
+      %p
+        %label{ :for => :commitlog_sync_batch_window_in_ms }= t('.commitlog_sync_batch_window_in_ms')
+        %input#commitlog_sync_batch_window_in_ms{:type => "text", :name => "commitlog_sync_batch_window_in_ms", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["commitlog_sync_batch_window_in_ms"], :onchange => "update_value('commitlog_sync_batch_window_in_ms', 'commitlog_sync_batch_window_in_ms', 'integer')"}
+
+      %p
+        %label{ :for => :commitlog_sync_period_in_ms }= t('.commitlog_sync_period_in_ms')
+        %input#commitlog_sync_period_in_ms{:type => "text", :name => "commitlog_sync_period_in_ms", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["commitlog_sync_period_in_ms"], :onchange => "update_value('commitlog_sync_period_in_ms', 'commitlog_sync_period_in_ms', 'integer')"}
+
+      %p
+        %label{ :for => :commitlog_segment_size_in_mb }= t('.commitlog_segment_size_in_mb')
+        %input#commitlog_segment_size_in_mb{:type => "text", :name => "commitlog_segment_size_in_mb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["commitlog_segment_size_in_mb"], :onchange => "update_value('commitlog_segment_size_in_mb', 'commitlog_segment_size_in_mb', 'integer')"}
+
+      %p
+        %label{ :for => :flush_largest_memtables_at }= t('.flush_largest_memtables_at')
+        %input#flush_largest_memtables_at{:type => "text", :name => "flush_largest_memtables_at", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["flush_largest_memtables_at"].to_s, :onchange => "update_value('flush_largest_memtables_at', 'flush_largest_memtables_at', 'float')"}
+
+      %p
+        %label{ :for => :reduce_cache_sizes_at }= t('.reduce_cache_sizes_at')
+        %input#reduce_cache_sizes_at{:type => "text", :name => "reduce_cache_sizes_at", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["reduce_cache_sizes_at"].to_s, :onchange => "update_value('reduce_cache_sizes_at', 'reduce_cache_sizes_at', 'float')"}
+
+      %p
+        %label{ :for => :reduce_cache_capacity_to }= t('.reduce_cache_capacity_to')
+        %input#reduce_cache_capacity_to{:type => "text", :name => "reduce_cache_capacity_to", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["reduce_cache_capacity_to"].to_s, :onchange => "update_value('reduce_cache_capacity_to', 'reduce_cache_capacity_to', 'float')"}
+
+    %p
+      %label{ :for => :data_header }= t('.data_header')
+    %div.container
+
+      %p
+        %label{ :for => :data_file_directories }= t('.data_file_directories')
+        %input#data_file_directories{:type => "text", :name => "data_file_directories", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["data_file_directories"], :onchange => "update_value('data_file_directories', 'data_file_directories', 'string')"}
+
+      %p
+        %label{ :for => :concurrent_reads }= t('.concurrent_reads')
+        %input#concurrent_reads{:type => "text", :name => "concurrent_reads", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["concurrent_reads"], :onchange => "update_value('concurrent_reads', 'concurrent_reads', 'integer')"}
+
+      %p
+        %label{ :for => :concurrent_writes }= t('.concurrent_writes')
+        %input#concurrent_writes{:type => "text", :name => "concurrent_writes", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["concurrent_writes"], :onchange => "update_value('concurrent_writes', 'concurrent_writes', 'integer')"}
+
+      %p
+        %label{ :for => :memtable_flush_queue_size }= t('.memtable_flush_queue_size')
+        %input#memtable_flush_queue_size{:type => "text", :name => "memtable_flush_queue_size", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["memtable_flush_queue_size"], :onchange => "update_value('memtable_flush_queue_size', 'memtable_flush_queue_size', 'integer')"}
+
+      %p
+        %label{ :for => :trickle_fsync }= t('.trickle_fsync')
+        = select_tag :trickle_fsync, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["trickle_fsync"].to_s), :onchange => "update_value('trickle_fsync', 'trickle_fsync', 'boolean')"
+
+      %p
+        %label{ :for => :trickle_fsync_interval_in_kb }= t('.trickle_fsync_interval_in_kb')
+        %input#trickle_fsync_interval_in_kb{:type => "text", :name => "trickle_fsync_interval_in_kb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["trickle_fsync_interval_in_kb"], :onchange => "update_value('trickle_fsync_interval_in_kb', 'trickle_fsync_interval_in_kb', 'integer')"}
+
+      %p
+        %label{ :for => :incremental_backups }= t('.incremental_backups')
+        = select_tag :incremental_backups, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["incremental_backups"].to_s), :onchange => "update_value('incremental_backups', 'incremental_backups', 'boolean')"
+
+      %p
+        %label{ :for => :snapshot_before_compaction }= t('.snapshot_before_compaction')
+        = select_tag :snapshot_before_compaction, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["snapshot_before_compaction"].to_s), :onchange => "update_value('snapshot_before_compaction', 'snapshot_before_compaction', 'boolean')"
+
+      %p
+        %label{ :for => :trickle_fsync }= t('.auto_snapshot')
+        = select_tag :auto_snapshot, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["auto_snapshot"].to_s), :onchange => "update_value('auto_snapshot', 'auto_snapshot', 'boolean')"
+
+      %p
+        %label{ :for => :column_index_size_in_kb }= t('.column_index_size_in_kb')
+        %input#column_index_size_in_kb{:type => "text", :name => "column_index_size_in_kb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["column_index_size_in_kb"], :onchange => "update_value('column_index_size_in_kb', 'column_index_size_in_kb', 'integer')"}
+
+      %p
+        %label{ :for => :in_memory_compaction_limit_in_mb }= t('.in_memory_compaction_limit_in_mb')
+        %input#in_memory_compaction_limit_in_mb{:type => "text", :name => "in_memory_compaction_limit_in_mb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["in_memory_compaction_limit_in_mb"], :onchange => "update_value('in_memory_compaction_limit_in_mb', 'in_memory_compaction_limit_in_mb', 'integer')"}
+
+      %p
+        %label{ :for => :multithreaded_compaction }= t('.multithreaded_compaction')
+        = select_tag :multithreaded_compaction, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["multithreaded_compaction"].to_s), :onchange => "update_value('multithreaded_compaction', 'multithreaded_compaction', 'boolean')"
+
+      %p
+        %label{ :for => :compaction_throughput_mb_per_sec }= t('.compaction_throughput_mb_per_sec')
+        %input#compaction_throughput_mb_per_sec{:type => "text", :name => "compaction_throughput_mb_per_sec", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["compaction_throughput_mb_per_sec"], :onchange => "update_value('compaction_throughput_mb_per_sec', 'compaction_throughput_mb_per_sec', 'integer')"}
+
+      %p
+        %label{ :for => :compaction_preheat_key_cache }= t('.compaction_preheat_key_cache')
+        = select_tag :compaction_preheat_key_cache, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["compaction_preheat_key_cache"].to_s), :onchange => "update_value('compaction_preheat_key_cache', 'compaction_preheat_key_cache', 'boolean')"
+
+    %p
+      %label{ :for => :rpc_header }= t('.rpc_header')
+    %div.container
+
+      %p
+        %label{ :for => :rpc_keepalive }= t('.rpc_keepalive')
+        = select_tag :rpc_keepalive, options_for_select([['true','true'], ['false', 'false']], @proposal.raw_data['attributes'][@proposal.barclamp]["rpc_keepalive"].to_s), :onchange => "update_value('rpc_keepalive', 'rpc_keepalive', 'boolean')"
+
+      %p
+        %label{ :for => :rpc_server_type }= t('.rpc_server_type')
+        = select_tag :rpc_server_type, options_for_select([['sync','sync'], ['async', 'async'], ['hsha', 'hsha']], @proposal.raw_data['attributes'][@proposal.barclamp]["rpc_server_type"]), :onchange => "update_value('rpc_server_type', 'rpc_server_type', 'string')"
+
+      %p
+        %label{ :for => :rpc_timeout_in_ms }= t('.rpc_timeout_in_ms')
+        %input#rpc_timeout_in_ms{:type => "text", :name => "rpc_timeout_in_ms", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["rpc_timeout_in_ms"], :onchange => "update_value('rpc_timeout_in_ms', 'rpc_timeout_in_ms', 'integer')"}
+
+      %p
+        %label{ :for => :rpc_min_threads }= t('.rpc_min_threads')
+        %input#rpc_min_threads{:type => "text", :name => "rpc_min_threads", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["rpc_min_threads"], :onchange => "update_value('rpc_min_threads', 'rpc_min_threads', 'integer')"}
+
+      %p
+        %label{ :for => :rpc_max_threads }= t('.rpc_max_threads')
+        %input#rpc_max_threads{:type => "text", :name => "rpc_max_threads", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["rpc_max_threads"], :onchange => "update_value('rpc_max_threads', 'rpc_max_threads', 'integer')"}
+
+      %p
+        %label{ :for => :thrift_framed_transport_size_in_mb }= t('.thrift_framed_transport_size_in_mb')
+        %input#thrift_framed_transport_size_in_mb{:type => "text", :name => "thrift_framed_transport_size_in_mb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["thrift_framed_transport_size_in_mb"], :onchange => "update_value('thrift_framed_transport_size_in_mb', 'thrift_framed_transport_size_in_mb', 'integer')"}
+
+      %p
+        %label{ :for => :thrift_max_message_length_in_mb }= t('.thrift_max_message_length_in_mb')
+        %input#thrift_max_message_length_in_mb{:type => "text", :name => "thrift_max_message_length_in_mb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["thrift_max_message_length_in_mb"], :onchange => "update_value('thrift_max_message_length_in_mb', 'thrift_max_message_length_in_mb', 'integer')"}
+
+    %p
+      %label{ :for => :distribution_header }= t('.distribution_header')
+    %div.container
+
+      %p
+        %label{ :for => :endpoint_snitch }= t('.endpoint_snitch')
+        = select_tag :endpoint_snitch, options_for_select([['SimpleSnitch','SimpleSnitch'], ['PropertyFileSnitch', 'PropertyFileSnitch'], ['GossipingPropertyFileSnitch', 'GossipingPropertyFileSnitch'], ['RackInferringSnitch', 'RackInferringSnitch'], ['Ec2Snitch', 'Ec2Snitch'], ['Ec2MultiRegionSnitch', 'Ec2MultiRegionSnitch']], @proposal.raw_data['attributes'][@proposal.barclamp]["endpoint_snitch"]), :onchange => "update_value('endpoint_snitch', 'endpoint_snitch', 'string')"
+
+      %p
+        %label{ :for => :dynamic_snitch_update_interval_in_ms }= t('.dynamic_snitch_update_interval_in_ms')
+        %input#dynamic_snitch_update_interval_in_ms{:type => "text", :name => "dynamic_snitch_update_interval_in_ms", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["dynamic_snitch_update_interval_in_ms"], :onchange => "update_value('dynamic_snitch_update_interval_in_ms', 'dynamic_snitch_update_interval_in_ms', 'integer')"}
+
+      %p
+        %label{ :for => :dynamic_snitch_reset_interval_in_ms }= t('.dynamic_snitch_reset_interval_in_ms')
+        %input#dynamic_snitch_reset_interval_in_ms{:type => "text", :name => "dynamic_snitch_reset_interval_in_ms", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["dynamic_snitch_reset_interval_in_ms"], :onchange => "update_value('dynamic_snitch_reset_interval_in_ms', 'dynamic_snitch_reset_interval_in_ms', 'integer')"}
+
+      %p
+        %label{ :for => :dynamic_snitch_badness_threshold }= t('.dynamic_snitch_badness_threshold')
+        %input#dynamic_snitch_badness_threshold{:type => "text", :name => "dynamic_snitch_badness_threshold", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["dynamic_snitch_badness_threshold"].to_s, :onchange => "update_value('dynamic_snitch_badness_threshold', 'dynamic_snitch_badness_threshold', 'float')"}
+
+      %p
+        %label{ :for => :request_scheduler }= t('.request_scheduler')
+        = select_tag :request_scheduler, options_for_select([['NoScheduler','org.apache.cassandra.scheduler.NoScheduler'], ['RoundRobinScheduler', 'org.apache.cassandra.scheduler.RoundRobinScheduler']], @proposal.raw_data['attributes'][@proposal.barclamp]["request_scheduler"]), :onchange => "update_value('request_scheduler', 'request_scheduler', 'string')"
+
+      %p
+        %label{ :for => :index_interval }= t('.index_interval')
+        %input#index_interval{:type => "text", :name => "index_interval", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["index_interval"], :onchange => "update_value('index_interval', 'index_interval', 'integer')"}
+
+    %p
+      %label{ :for => :encryption_header }= t('.encryption_header')
+    %div.container
+
+      %p
+        %label{ :for => :keystore_password }= t('.keystore_password')
+        %input#keystore_password{:type => "text", :name => "keystore_password", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["keystore_password"], :onchange => "update_value('keystore_password', 'keystore_password', 'string')"}
+
+      %p
+        %label{ :for => :truststore_password }= t('.truststore_password')
+        %input#truststore_password{:type => "text", :name => "truststore_password", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["truststore_password"], :onchange => "update_value('truststore_password', 'truststore_password', 'string')"}
+
+    %p
+      %label{ :for => :log4j_header }= t('.log4j_header')
+    %div.container
+
+      %p
+        %label{ :for => :log4j_level }= t('.log4j_level')
+        = select_tag :log4j_level, options_for_select([['DEBUG','DEBUG'], ['INFO', 'INFO'], ['WARN', 'WARN'], ['ERROR', 'ERROR'], ['FATAL', 'FATAL']], @proposal.raw_data['attributes'][@proposal.barclamp]["log4j_level"]), :onchange => "update_value('log4j_level', 'log4j_level', 'string')"
+
+      %p
+        %label{ :for => :log4j_file_log }= t('.log4j_file_log')
+        %input#log4j_file_log{:type => "text", :name => "log4j_file_log", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["log4j_file_log"], :onchange => "update_value('log4j_file_log', 'log4j_file_log', 'string')"}
+
+      %p
+        %label{ :for => :log4j_file_maxsize_in_mb }= t('.log4j_file_maxsize_in_mb')
+        %input#log4j_file_maxsize_in_mb{:type => "text", :name => "log4j_file_maxsize_in_mb", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["log4j_file_maxsize_in_mb"], :onchange => "update_value('log4j_file_maxsize_in_mb', 'log4j_file_maxsize_in_mb', 'integer')"}
+
+      %p
+        %label{ :for => :log4j_file_maxindex }= t('.log4j_file_maxindex')
+        %input#log4j_file_maxindex{:type => "text", :name => "log4j_file_maxindex", :'data-default' => @proposal.raw_data['attributes'][@proposal.barclamp]["log4j_file_maxindex"], :onchange => "update_value('log4j_file_maxindex', 'log4j_file_maxindex', 'integer')"}
+
+    %br

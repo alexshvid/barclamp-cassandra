@@ -1,0 +1,125 @@
+# Copyright 2012, Mirantis, Inc
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+barclamp:
+  name: cassandra
+  display: Apache Cassandra
+  description: Configures an Apache Cassandra Client and Server
+  version: 0
+
+  os_support:
+    - ubuntu-12.04
+
+crowbar:
+  layout: 1
+  order: 310
+  run_order: 310
+  chef_order: 310
+
+locale_additions:
+  en:
+    barclamp:
+      cassandra:
+        edit_attributes:
+          attributes: Attributes
+
+          general_header: General
+          cluster_name: Cluster Name
+          storage_port: Storage Port
+          ssl_storage_port: SSL Storage Port
+          rpc_port: RPC Port
+          jmx_port: JMX Port
+          max_heap_size: Java Max Heap Size (numM,numG,empty=Auto)
+          heap_newsize: Java New Heap Size (numM,numG,empty=Auto)
+          xx_directory: Heap -XX Log Directory
+          pid_file: PID File
+          output_file: Output Log File
+          partitioner: Partitioner
+
+          handoff_header: Handoff
+          hinted_handoff_enabled: Hinted Handoff Enabled
+          max_hint_window_in_ms: Max Hint Window (Ms)
+          hinted_handoff_throttle_delay_in_ms: Hinted Handoff Throttle Delay (Ms)
+
+          cache_header: Cache
+          saved_caches_directory: Saved Caches Directory
+          key_cache_save_period: Key Cache Save Period
+          row_cache_size_in_mb: Row Cache Size (Mb)
+          row_cache_save_period: Row Cache Save Period
+          row_cache_provider: Row Cache Provider
+
+          commitlog_header: Commitlog
+          commitlog_directory: Commitlog Directory
+          commitlog_sync: Commitlog Sync
+          commitlog_sync_batch_window_in_ms: Commitlog Sync Batch Window (Ms)
+          commitlog_sync_period_in_ms: Commitlog Sync Period (Ms)
+          commitlog_segment_size_in_mb: Commitlog Segment Size (Mb)
+          flush_largest_memtables_at: Flush Largest Memtables at
+          reduce_cache_sizes_at: Reduce Cache Sizes at
+          reduce_cache_capacity_to: Reduce Cache Capacity to
+
+          data_header: Data
+          data_file_directories: Data File Directories
+          concurrent_reads: Concurrent Reads
+          concurrent_writes: Concurrent Writes
+          memtable_flush_queue_size: Memtable Flush Queue Size
+          trickle_fsync: Trickle Fsync
+          trickle_fsync_interval_in_kb: Trickle Fsync Interval (Kb)
+          incremental_backups: Incremental Backups
+          snapshot_before_compaction: Snapshot Before Compaction
+          auto_snapshot: Auto Snapshot
+          column_index_size_in_kb: Column Index Size (Kb)
+          in_memory_compaction_limit_in_mb: In memory Compaction Limit (Mb)
+          multithreaded_compaction: Multithreaded Compaction
+          compaction_throughput_mb_per_sec: Compaction Throughput (Mb per sec)
+          compaction_preheat_key_cache: Compaction Preheat Key Cache
+
+          rpc_header: RPC
+          rpc_keepalive: RPC Keepalive
+          rpc_server_type: RPC Server Type
+          rpc_timeout_in_ms: RPC Timeout (Ms)
+          rpc_min_threads: RPC Min Threads
+          rpc_max_threads: RPC Max Threads
+          thrift_framed_transport_size_in_mb: Thrift Framed Transport Size (Mb)
+          thrift_max_message_length_in_mb: Thrift Max Message Length (Mb)
+
+          distribution_header: Distribution
+          endpoint_snitch: Endpoint Snitch
+          dynamic_snitch_update_interval_in_ms: Dynamic Snitch Update Interval (Ms)
+          dynamic_snitch_reset_interval_in_ms: Dynamic Snitch Reset Interval (Ms)
+          dynamic_snitch_badness_threshold: Dynamic Snitch Badness Threshold
+          request_scheduler: Request Scheduler
+          index_interval: Index Interval
+
+          encryption_header: Encryption
+          keystore_password: Keystore Password
+          truststore_password: Truststore Password
+
+          log4j_header: Log4j
+          log4j_level: Log4j Level
+          log4j_file_log: Log4j File Log
+          log4j_file_maxsize_in_mb: Log4j Max Size (Mb)
+          log4j_file_maxindex: Log4j Max Indexes
+
+        edit_deployment:
+          deployment: Deployment
+
+debs:
+  repos:
+    deb http://debian.datastax.com/community/ stable main
+  pkgs:
+    - cassandra
+
+

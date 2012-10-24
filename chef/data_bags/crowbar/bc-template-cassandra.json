@@ -1,0 +1,106 @@
+{
+  "id": "bc-template-cassandra",
+  "description": "High-performance key-value storage for BigData applications.",
+  "attributes": {
+    "cassandra": {
+      "debug": true,
+
+      "cluster_name": "Test Cluster",
+      "storage_port" : 7000,
+      "ssl_storage_port" : 7001,
+      "rpc_port" : 9160,
+      "jmx_port" : 7199,
+      "max_heap_size" : "512M",
+      "heap_newsize" : "64M",
+      "xx_directory" : "/var/log/cassandra",
+      "pid_file" : "/var/run/cassandra.pid",
+      "output_file" : "/var/log/cassandra/output.log",
+
+      "hinted_handoff_enabled" : true,
+      "max_hint_window_in_ms" : 3600000,
+      "hinted_handoff_throttle_delay_in_ms" : 1,
+
+      "partitioner" : "org.apache.cassandra.dht.RandomPartitioner",
+      "data_file_directories" : "/var/lib/cassandra/data",
+      "commitlog_directory" : "/var/lib/cassandra/commitlog",
+      "saved_caches_directory" : "/var/lib/cassandra/saved_caches",
+
+      "key_cache_save_period" : 14400,
+      "row_cache_size_in_mb" : 0,
+      "row_cache_save_period" : 0,
+      "row_cache_provider" : "SerializingCacheProvider",
+
+      "commitlog_sync" : "periodic",
+      "commitlog_sync_batch_window_in_ms" : 50,
+      "commitlog_sync_period_in_ms" : 10000,
+      "commitlog_segment_size_in_mb" : 32,
+
+      "flush_largest_memtables_at" : 0.75,
+      "reduce_cache_sizes_at" : 0.85,
+      "reduce_cache_capacity_to" : 0.6,
+
+      "concurrent_reads" : 32,
+      "concurrent_writes" : 32,
+
+      "memtable_flush_queue_size" : 4,
+      "trickle_fsync" : false,
+      "trickle_fsync_interval_in_kb" : 10240,
+
+      "rpc_keepalive" : true,
+      "rpc_server_type" : "sync",
+      "rpc_timeout_in_ms" : 10000,
+      "rpc_min_threads" : 16,
+      "rpc_max_threads" : 2048,
+      "thrift_framed_transport_size_in_mb" : 15,
+      "thrift_max_message_length_in_mb" : 16,
+
+      "incremental_backups" : false,
+      "snapshot_before_compaction" : false,
+      "auto_snapshot" : true,
+      "column_index_size_in_kb" : 64,
+      "in_memory_compaction_limit_in_mb" : 64,
+      "multithreaded_compaction" : false,
+      "compaction_throughput_mb_per_sec" : 16,
+      "compaction_preheat_key_cache" : true,
+
+      "endpoint_snitch" : "RackInferringSnitch",
+      "dynamic_snitch_update_interval_in_ms" : 100,
+      "dynamic_snitch_reset_interval_in_ms" : 600000,
+      "dynamic_snitch_badness_threshold" : 0.1,
+
+      "request_scheduler" : "org.apache.cassandra.scheduler.NoScheduler",
+      "index_interval" : 128,
+
+      "keystore_password" : "",
+      "truststore_password" : "",
+
+      "log4j_level" : "INFO",
+      "log4j_file_log" : "/var/log/cassandra/system.log",
+      "log4j_file_maxsize_in_mb" : 20,
+      "log4j_file_maxindex" : 50
+    }
+  },
+  "deployment": {
+    "cassandra": {
+      "crowbar-revision": 0,
+      "element_states": {
+        "cassandra-server": [ "readying", "ready", "applying" ]
+      },
+      "elements": {},
+      "element_order": [
+        [
+         "cassandra-server"
+        ]
+      ],
+      "config": {
+        "environment": "cassandra-base-config",
+        "mode": "full",
+        "transitions": true,
+        "transition_list": [
+          "installed"
+        ]
+      }
+    }
+  }
+}
+
